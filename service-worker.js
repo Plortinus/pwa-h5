@@ -25,7 +25,7 @@ if (workbox) {
   // StaleWhileRevalidate：如果缓存有数据，直接返回缓存中的资源，让界面快速加载，然后再发起网络请求更新相关资源并进行缓存
   workbox.routing.registerRoute(
     new RegExp('.*/.*'),
-    new workbox.strategies.NetworkOnly()
+    new workbox.strategies.StaleWhileRevalidate()
   )
 
   // Catch routing errors, like if the user is offline
