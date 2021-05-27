@@ -1,5 +1,11 @@
 // 在Worker线程的全局作用域执行的，WorkerGlobalScope.importScripts()
 console.log('Hello from service-worker.js');
+self.addEventListener('install', event => {
+  self.skipWaiting()
+  console.log("🚀 skipWaiting")
+  // 预缓存其他静态内容
+})
+
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js');
 if (workbox) {  
   console.log(`Yay! Workbox is loaded 🎉`);
