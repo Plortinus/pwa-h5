@@ -1,0 +1,23 @@
+{
+  "name": "pwa-h5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apiServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Plortinus/pwa-h5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Plortinus/pwa-h5/issues"
+  },
+  "homepage": "https://github.com/Plortinus/pwa-h5#readme",
+  "dependencies": {
+    "web-push": "^3.4.4"
+  }
+}

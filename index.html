@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="theme-color" content="red">比manifest.json的theme-color优先级更高 -->
   <title>PWA Test</title>
+  <link rel="apple-touch-icon" href="/static/img/icons/apple-touch-icon-152x152.png">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
 </head>
@@ -14,9 +16,9 @@
     // Check that service workers are supported
     if ('serviceWorker' in navigator) {
       // Use the window load event to keep the page load performant
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
+      // window.addEventListener('load', () => {
+      //   navigator.serviceWorker.register('/service-worker.js');
+      // });
 
       // skip + refresh
       // var refreshing = false
@@ -30,10 +32,10 @@
       // })
       
     }
-    Notification.requestPermission().then(permission => {
-      console.log("🚀 ~ file: index.html ~ line 22 ~ Notification.requestPermission ~ permission", permission)
-      // 通过 permission 判断用户的选择结果
-    })
+    // Notification.requestPermission().then(permission => {
+    //   console.log("🚀 ~ file: index.html ~ line 22 ~ Notification.requestPermission ~ permission", permission)
+    //   // 通过 permission 判断用户的选择结果
+    // })
     // if (Notification.permission === 'granted') {
     //   // 用户已授权，可展示通知
     //   const title = 'PWA-Book-Demo Notification Title'
@@ -48,6 +50,6 @@
     // }
 
     </script>
-    <script src="./notification.js"></script>
+    <script src="./entry.js"></script>
 </body>
 </html>

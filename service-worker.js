@@ -1,12 +1,5 @@
 // 在Worker线程的全局作用域执行的，WorkerGlobalScope.importScripts()
-console.log('Hello from service-worker.js');
-self.addEventListener('install', event => {
-  self.skipWaiting()
-  console.log("🚀 skipWaiting")
-  // 预缓存其他静态内容
-})
-
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js');
+importScripts('https://cdn.jsdelivr.net/npm/workbox-sw@6.1.5/build/workbox-sw.min.js');
 if (workbox) {  
   console.log(`Yay! Workbox is loaded 🎉`);
   // 设置缓存名细节
@@ -19,7 +12,7 @@ if (workbox) {
   * 以下语句来获取预缓存列表和预缓存他们，也就是打包项目后生产的html，js，css等* 静态文件
   */
   workbox.precaching.precacheAndRoute([
-    { url: '/offline.html', revision: 1 }
+    { url: '/offline.html', revision: 2 }
   ])
 
   // 对我们请求的数据进行缓存，
@@ -47,10 +40,34 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-// 首先监听 notificationclick 事件：
+// sw更新机制
+self.addEventListener('install', event => {
+  self.skipWaiting()
+  console.log("🚀 skipWaiting")
+  // 预缓存其他静态内容
+})
+
+// 监听 push 事件
+self.addEventListener('push', function (e) {
+  if (!e.data) {
+    return
+  }
+  // 解析获取推送消息
+  let payload = e.data.json()
+  // 根据推送消息生成桌面通知并展现出来
+  let promise = self.registration.showNotification(payload.title, {
+    body: payload.body,
+    icon: payload.icon,
+    data: {
+      url: payload.url
+    }
+  })
+  e.waitUntil(promise)
+})
+// 监听通知点击事件
 self.addEventListener('notificationclick', function (e) {
-  // 关闭通知
+  // 关闭窗口
   e.notification.close()
   // 打开网页
-  e.waitUntil(clients.openWindow(e.notification.data.url))
+  e.waitUntil(clients.openWindow(e.data.url))
 })
